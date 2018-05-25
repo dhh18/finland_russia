@@ -1,3 +1,6 @@
+import json
+import pandas
+
 def load_yle_fi():
 	#load Yle finnish articles:
 	yle_fi_dict = None
