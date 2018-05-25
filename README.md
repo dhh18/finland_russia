@@ -12,5 +12,5 @@ pip install -r requirements.txt
 
 Printing the dependencies
 ```
-pip freeze
+pip freeze -l > requirements.txt
 ```
