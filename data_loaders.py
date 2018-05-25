@@ -1,5 +1,5 @@
 import json
-import pandas
+import pandas as pd
 
 def load_yle_fi():
 	#load Yle finnish articles:
