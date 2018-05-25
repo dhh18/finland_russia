@@ -1,5 +1,12 @@
 import json
 import pandas as pd
+import os
+
+def set_home_dir():
+    cur_dir = os.getcwd()
+    sep = '/notebooks'
+    rest = cur_dir.split(sep, 1)[0]
+    os.chdir(rest)
 
 def load_yle_fi():
 	#load Yle finnish articles:
