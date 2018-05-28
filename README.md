@@ -5,12 +5,17 @@ Set-up
 python3 -m venv venv
 ```
 
+Remember to enter venv
+```
+source venv/bin/activate
+```
+
 Dependency installation
 ```
 pip install -r requirements.txt
 ```
 
-Printing the dependencies
+Updating the dependencies
 ```
 pip freeze -l > requirements.txt
 ```
