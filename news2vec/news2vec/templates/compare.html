@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Compare{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form method='get'>
+    <label for='word1'>First word:</label>
+    <input type='text' id='word1' name='word1' 
+           value='{{ args.get('word1') }}'/>
+    <label for='word2'>Second word:</label>
+    <input type='text' id='word2' name='word2' 
+           value='{{ args.get('word2') }}'/>
+    {% for corpus in models.keys() %}
+        <label for='{{ corpus }}'>{{ corpus }}</label>
+        <input type='checkbox' id='{{ corpus }}' name="corpora" value='{{ corpus }}' 
+        {% if corpus in args.getlist('corpora') %}
+            checked
+        {% endif %}
+        />
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
+
+{% if results %}
+    <div class='results_container'>
+    <h2>Results</h2>
+    <div>Distance between <em>{{ args.get('word1') }}</em> and 
+    <em>{{ args.get('word2') }}</em>  </div>
+    {% for corpus in results.keys() %}
+        <div class='corpus_result'>
+        <h3>Corpus: {{ corpus }}</h3>
+          <table>
+            <thead>
+                <td>Period</td>
+                <td>Distance</td>
+            </thead>
+        {% for year in results[corpus].keys() %}
+            <tr>
+                <td>{{ year }}</td>
+                <td>{{ results[corpus][year] }}</td>
+            </tr>
+        {% endfor %}
+           </table>
+        </div>
+    {% endfor %}
+    </div>
+{% endif %}
+
+{% endblock %}

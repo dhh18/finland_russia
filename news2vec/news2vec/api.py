@@ -1,16 +1,17 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, jsonify
 )
+from flask import current_app as app
 import json
 from werkzeug.exceptions import abort
-from . import data_loader
+
 
 bp = Blueprint('api', __name__, url_prefix='/api')
 
 
 @bp.route('/')
 def index():
-    return ('foo')
+    return json.dumps(app.models.keys())
 
 
 @bp.route('/<corpus>/most_similar', methods=['GET', 'POST'])
@@ -19,10 +20,7 @@ def most_similar(corpus):
     years = request.args.getlist('years')
     n = request.args.get('n', default=5, type=int)
 
-    try:
-        res = data_loader.models[corpus].get_most_similar(words, years, n)
-    except ValueError:
-        print("Something went wrong")
+    res = app.models[corpus].get_most_similar(words, n, years)
 
     return json.dumps(res, ensure_ascii=False)
 
@@ -33,12 +31,13 @@ def compare(corpus):
     word2 = request.args.get('word2')
     years = request.args.getlist('years')
 
-    try:
-        res = data_loader.models[corpus].compare_words(word1, word2, years)
-    except ValueError:
-        print("Something went wrong")
+    res = app.models[corpus].compare(word1, word2, years)
 
-    return res
+    # Convert distance values away from float32 to float:
+    for key in res:
+        res[key] = float(res[key])
+
+    return json.dumps(res, ensure_ascii=False)
 
 
 @bp.route('/<corpus>/vector_mathematics', methods=['GET', 'POST'])
@@ -48,11 +47,8 @@ def vector_mathematics(corpus):
     years = request.args.getlist('years')
     n = request.args.get('n', default=5, type=int)
 
-    try:
-        res = data_loader.models[corpus].word_vector_math(positive_terms,
-                                                          negative_terms,
-                                                          years, n)
-    except ValueError:
-        print("Something went wrong")
+    res = app.models[corpus].word_vector_math(positive_terms,
+                                              negative_terms,
+                                              n, years)
 
-    return res
+    return json.dumps(res, ensure_ascii=False)

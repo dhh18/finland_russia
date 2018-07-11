@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Most Similar{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form method='get'>
+    <label for='words'>List of words (comma separated):</label>
+    <input type='text' id='words' name='words' 
+           value='{{ args.get('words') }}'/>
+    <label for='n'>Number of results:</label>
+    <select id='n' name='n'>
+      <option value="1"{% if args.get('n') == '1' %} selected="selected"{% endif %}>1</option>
+      <option value="2"{% if args.get('n') == '2' %} selected="selected"{% endif %}>2</option>
+      <option value="3"{% if args.get('n') == '3' %} selected="selected"{% endif %}>3</option>
+      <option value="4"{% if args.get('n') == '4' %} selected="selected"{% endif %}>4</option>
+      <option value="5"{% if args.get('n') == '5' or not args.get('n') %} selected="selected"{% endif %}>5</option>
+      <option value="10"{% if args.get('n') == '10' %} selected="selected"{% endif %}>10</option>
+      <option value="50"{% if args.get('n') == '50' %} selected="selected"{% endif %}>50</option>
+      <option value="100"{% if args.get('n') == '100' %} selected="selected"{% endif %}>100</option>
+    </select>
+    {% for corpus in models.keys() %}
+        <label for='{{ corpus }}'>{{ corpus }}</label>
+        <input type='checkbox' id='{{ corpus }}' name="corpora" value='{{ corpus }}' 
+        {% if corpus in args.getlist('corpora') %}
+            checked
+        {% endif %}
+        />
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
+
+{% if results %}
+    <div class='results_container'>
+    <h2>Results</h2>
+    <div>Nearest words to: <em>{{ args.get('words') }}</em></div>
+    {% for corpus in results.keys() %}
+        <div class='corpus_result'>
+        <h3>Corpus: {{ corpus }}</h3>
+        {% for year in results[corpus].keys() %}
+            <h4>Period: {{ year }}</h4>
+            <table>
+                <thead>
+                    <td>Word</td>
+                    <td>Closeness</td>
+                </thead>
+            {% for row in results[corpus][year] %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
+{% endif %}
+
+{% endblock %}

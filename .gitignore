@@ -4,3 +4,12 @@ __pycache__/
 *russia*.csv
 *russia*.json
 .ipynb_checkpoints
+.DS_Store
+.idea/
+backup/
+generated_images/
+images.tar.gz
+models
+*sublime*
+pickles/
+

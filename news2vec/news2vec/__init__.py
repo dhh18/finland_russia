@@ -19,6 +19,8 @@ def create_app(test_config=None):
         SECRET_KEY='dev'
     )
 
+    app.models = data_loader.models
+
     if test_config is None:
         # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)
@@ -32,9 +34,12 @@ def create_app(test_config=None):
         print('foo')
         return 'Hello, World!'
 
-
     # Blueprint - API
     from . import api
     app.register_blueprint(api.bp)
+
+    # Blueprint - View
+    from . import view
+    app.register_blueprint(view.bp)
 
     return app
