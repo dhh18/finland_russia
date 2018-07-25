@@ -21,12 +21,14 @@
       <option value="100"{% if args.get('n') == '100' %} selected="selected"{% endif %}>100</option>
     </select>
     {% for corpus in models.keys() %}
-        <label for='{{ corpus }}'>{{ corpus }}</label>
-        <input type='checkbox' id='{{ corpus }}' name="corpora" value='{{ corpus }}' 
-        {% if corpus in args.getlist('corpora') %}
-            checked
-        {% endif %}
-        />
+        <div class='row'>
+            <label for='{{ corpus }}'>{{ corpus }}</label>
+            <input type='checkbox' id='{{ corpus }}' name="corpora" value='{{ corpus }}' 
+            {% if corpus in args.getlist('corpora') or not args.getlist('corpora') %}
+                checked
+            {% endif %}
+            />
+        </div>
     {% endfor %}
     <input type="submit" value="Submit">
 </form>
@@ -34,18 +36,18 @@
 {% if results %}
     <div class='results_container'>
     <h2>Results</h2>
-    <div>Nearest words to: <em>{{ args.get('words') }}</em></div>
+    <div>Nearest words to: <em class='positive'>{{ args.get('words') }}</em></div>
     {% for corpus in results.keys() %}
         <div class='corpus_result'>
         <h3>Corpus: {{ corpus }}</h3>
-        {% for year in results[corpus].keys() %}
-            <h4>Period: {{ year }}</h4>
+        {% for period in results[corpus]|sort(reverse=true) %}
+            <h4>Period: {{ period }}</h4>
             <table>
                 <thead>
                     <td>Word</td>
                     <td>Closeness</td>
                 </thead>
-            {% for row in results[corpus][year] %}
+            {% for row in results[corpus][period] %}
                 <tr>
                     <td>{{ row[0] }}</td>
                     <td>{{ row[1] }}</td>
@@ -53,6 +55,7 @@
             {% endfor %}
             </table>
         {% endfor %}
+        <a href="/api/{{ corpus }}/most_similar?"><a img="{{ url_for('static', filename='xls_icon_48.png') }}" /><span>.xls</span></a>
         </div>
     {% endfor %}
     </div>

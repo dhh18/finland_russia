@@ -1,6 +1,15 @@
 html { font-family: sans-serif; background: #eee; padding: 1rem; }
 body { max-width: 960px; margin: 0 auto; background: white; }
-h1 { font-family: serif; color: #377ba8; margin: 1rem 0; }
+h1 { 
+    font-family: sans-serif; 
+    color: #A8373E; 
+    margin: 1rem 0; 
+}
+h2 { 
+    font-family: sans-serif; 
+    color: #A8373E; 
+    margin: 1rem 0;
+}
 a { 
     color: #377ba8;
     cursor: pointer;
@@ -11,27 +20,126 @@ a:hover {
 }
 
 hr { border: none; border-top: 1px solid lightgray; }
-nav { background: lightgray; display: flex; align-items: center; padding: 0 0.5rem; }
-nav h1 { flex: auto; margin: 0; }
+nav { 
+    background: lightgray; 
+    display: flex; 
+    align-items: center; 
+    padding: 0 0.5rem 0 0.5rem; 
+    margin-bottom: 20px;}
+nav h1 { flex: auto; margin: 0; font-size: 30pt}
 nav h1 a { text-decoration: none; padding: 0.25rem 0.5rem; }
 nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
 nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
+
 .content { padding: 0 1rem 1rem; }
-.content > header { border-bottom: 1px solid lightgray; display: flex; align-items: flex-end; }
-.content > header h1 { flex: auto; margin: 1rem 0 0.25rem 0; }
+.content > header {
+    border-bottom: 1px solid lightgray; 
+    display: flex; 
+    align-items: flex-end; 
+}
+.content > header h1 { flex: auto; margin: 1rem 0 2rem 0; }
 .flash { margin: 1em 0; padding: 1em; background: #cae6f6; border: 1px solid #377ba8; }
 
-.post > header { display: flex; align-items: flex-end; font-size: 0.85em; }
-.post > header > div:first-of-type { flex: auto; }
-.post > header h1 { font-size: 1.5em; margin-bottom: 0; }
-.post .about { color: slategray; font-style: italic; }
-.post .body { white-space: pre-line; }
+.main {
+    padding-top:20px;
+    padding-left:20px;
+    display: flex; 
+    flex-direction: row;
+    padding-bottom: 20px;
+    max-width: 750px;
+    margin: auto;
+}
+
+.main .feature {
+    width: 250px;
+    flex-direction: row;
+    padding-bottom: 20px
+    padding-left: 20px;
+}
+
+.main .feature span {
+    display: inline-block;
+    width: 200px;
+}
+
+.main .feature a.teaserlink {
+    align-self: start; 
+    min-width: 10em; 
+    background: #377ba8;
+    color: white;
+    border-style: outset;
+    border-color: #377ba8;
+    width: 200px;
+    display: flex;
+    font: bold 15px arial, sans-serif;
+    text-shadow:none;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 10px;
+    margin-bottom: 15px;
+}
+
+.main .feature a.teaserlink:hover {
+   opacity:0.8;
+   text-decoration: none;
+}
+
+.info {
+    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+}
 
 .content:last-child { margin-bottom: 0; }
-.content form { margin: 1em 0; display: flex; flex-direction: column; }
-.content label { font-weight: bold; margin-bottom: 0.5em; }
+.content form { 
+    margin: 1em 0; 
+    display: flex; 
+    flex-direction: column; 
+}
+.content label { 
+    margin-bottom: 0.5em;
+    float: left;
+}
+.content form .row {
+    flex-direction: row;
+}
 .content input, .content textarea { margin-bottom: 1em; }
 .content textarea { min-height: 12em; resize: vertical; }
+.content input[type='checkbox'] {
+
+}
+
+.content form select {
+    margin-bottom: 15px;
+}
+input.danger { color: #cc2f2e; }
+
+
+input[type=submit] { 
+    align-self: start; 
+    min-width: 10em; 
+    background: #377ba8;
+    color: white;
+    border-style: outset;
+    border-color: black;
+    height: 50px;
+    width: 100px;
+    font: bold 15px arial, sans-serif;
+    text-shadow:none;
+    cursor: pointer;
+}
+
+.positive {
+    color: green;
+}
+
+.negative {
+    color: red;
+}
+
+input[type=submit]:hover {
+   opacity:0.8;
+}
 
 .results_container:after {
     content: "";
@@ -44,9 +152,18 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
     width: 50%;
 }
 
+.info {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    width: 50%;
+    padding: 0 15px;
+
+}
+
 .results_container thead { 
     font-weight: bold; 
 }
 
-input.danger { color: #cc2f2e; }
-input[type=submit] { align-self: start; min-width: 10em; }

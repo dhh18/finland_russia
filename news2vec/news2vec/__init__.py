@@ -34,9 +34,10 @@ def create_app(test_config=None):
         print('foo')
         return 'Hello, World!'
 
+
     # Blueprint - API
-    from . import api
-    app.register_blueprint(api.bp)
+    # from . import api
+    # app.register_blueprint(api.bp)
 
     # Blueprint - View
     from . import view

@@ -20,7 +20,7 @@ class W2VModel:
             try:
                 results[year] = self.models[year].similarity(word1, word2)
             except KeyError:
-                results[year] = 'N\/A'
+                results[year] = 'N/A'
         return results
 
     def word_vector_math(self, positive_terms, negative_terms, n, years=None):

@@ -1,9 +1,98 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Main{% endblock %}</h1>
+  <h1>{% block title %}Word2Vec queries for Integrum news corpus mentioning Finland, 1993 - 2017{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-foo
+<div class='main'>
+  <div class='feature'>
+    <a class='teaserlink' href='most_similar'>Find similar words</a>
+    <span>Enter one word, or a comma separated list of words to find the most similar words to the ones you entered</span>
+  </div>
+  <div class='feature'>
+    <a class='teaserlink' href='most_similar'>Compare word distances</a>
+    <span>Enter two words to see how close or far they are. The closer the distance is to 1, the closer the words are in the corpus.</span>
+  </div>
+  <div class='feature'>
+    <a class='teaserlink' href='most_similar'>Perform word vector arithmetics</a>
+    <span>Ask questions of the type is "A to B, but not for C". If you are not familiar with word vectors from before, be sure to read <a href='https://blog.acolyer.org/2016/04/21/the-amazing-power-of-word-vectors/'>The Amazing Power of Word Vectors</a> to gain some insight and intuition on how they work.</span>
+  </div>
+</div>
+<div class='info'>
+  <div class='column'>
+    <h2>Corpora</h2>
+    <p>Models have been trained on 2 corpora of Russian news articles filtered by mention of <b>Finland</b>:
+    <ul>
+      <li><b>Integrum Federal</b> - Federal news media - 1999 - 2017
+       '1999': 133,
+ '2000': 1394,
+ '2001': 1457,
+ '2002': 947,
+ '2003': 1191,
+ '2004': 1264,
+ '2005': 1440,
+ '2006': 2086,
+ '2007': 2063,
+ '2008': 2015,
+ '2009': 1729,
+ '2010': 1411,
+ '2011': 1393,
+ '2012': 1266,
+ '2013': 1222,
+ '2014': 1170,
+ '2015': 1144,
+ '2016': 1009,
+ '2017': 1040,</li>
+      <li><b>Integrum Local</b> - Local news media from St. Petersburg and Karelia - 1993 - 2017  '1993': 9,
+ '1995': 72,
+ '1996': 173,
+ '1997': 1142,
+ '1998': 1381,
+ '1999': 1841,
+ '2000': 2000,
+ '2001': 2132,
+ '2002': 1775,
+ '2003': 2009,
+ '2004': 1573,
+ '2005': 1811,
+ '2006': 2230,
+ '2007': 2072,
+ '2008': 2104,
+ '2009': 1790,
+ '2010': 1812,
+ '2011': 1364,
+ '2012': 1477,
+ '2013': 1464,
+ '2014': 1735,
+ '2015': 1620,
+ '2016': 1247,
+ '2017': 1184,</li>
+    </ul>
+    </p>
+    <table>
+      <thead>
+        <td>Year</td><td>Articles</td>
+      </thead>
+
+
+    </table>
+  </div>
+  <div class='column'>
+    <h2>Models and implementation</h2>
+    <p>The models used here were trained using <a href='https://radimrehurek.com/gensim/models/word2vec.html'>Gensim</a> implementation of <a href='https://arxiv.org/abs/1301.3781'>Word2Vec</a> (Mikolov et al., 2013).</p> 
+
+    <p>For each corpus, the following models have been trained:
+    <ul>
+      <li><b>All years</b> - All articles from the entire available time span were used to train this model. Only individual words were used to train (no common phrase detection).</li>
+      <li><b>All years / phrases</b> - All articles from the entire available time span were used to train this model, in addition, the model tried to detect common phrases and learn those as well.</li> 
+      <li><b>5 year batches</b> - In addition to training on the entire corpus, 5-year batches were used to train the models for 1993-1997, 1994-1999, 1994-1999, etc</li>   
+    </ul>
+    </p>
+
+    <p>The models were trained on lemmatized news articles, with all punctuation stripped. The lemmatization was done using <a href='https://github.com/nlpub/pymystem3'>Pymystem3</a>, a Python wrapper for <a href='https://tech.yandex.ru/mystem/'>Yandex Mystem</a>.
+    </p>
+  </div>
+</div>
+
 {% endblock %}
