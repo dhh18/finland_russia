@@ -1,14 +1,9 @@
 html { font-family: sans-serif; background: #eee; padding: 1rem; }
 body { max-width: 960px; margin: 0 auto; background: white; }
-h1 { 
+h1, h2 { 
     font-family: sans-serif; 
-    color: #A8373E; 
+    color: #A86C37; 
     margin: 1rem 0; 
-}
-h2 { 
-    font-family: sans-serif; 
-    color: #A8373E; 
-    margin: 1rem 0;
 }
 a { 
     color: #377ba8;
@@ -37,7 +32,10 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
     display: flex; 
     align-items: flex-end; 
 }
-.content > header h1 { flex: auto; margin: 1rem 0 2rem 0; }
+.content > header h1 { 
+    flex: auto; 
+    margin: 0.5rem 0 0.5rem 0; 
+}
 .flash { margin: 1em 0; padding: 1em; background: #cae6f6; border: 1px solid #377ba8; }
 
 .main {
@@ -90,8 +88,18 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
     border-top: 1px solid lightgray;
 }
 
+.info table th {
+    font-weight: normal;
+    font-style: italic;
+}
+.info table td {
+    width: 100px;
+}
+
 .content:last-child { margin-bottom: 0; }
 .content form { 
+    padding-top: 10px;
+    border-top: 1px solid lightgray;
     margin: 1em 0; 
     display: flex; 
     flex-direction: column; 
@@ -107,6 +115,18 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .content textarea { min-height: 12em; resize: vertical; }
 .content input[type='checkbox'] {
 
+}
+
+.content .help {
+    margin: 10px 10px;
+    padding: 10px;
+    display: block;
+    border-radius: 15px;
+    border: 1px solid #73AD21;
+    font-size: 11pt;
+    border-style: dotted;
+    background-color: #D4F1DC;
+    color: #778;
 }
 
 .content form select {

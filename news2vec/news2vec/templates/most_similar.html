@@ -2,9 +2,10 @@
 
 {% block header %}
   <h1>{% block title %}Most Similar{% endblock %}</h1>
-{% endblock %}
 
+{% endblock %}
 {% block content %}
+<span class='help'>Enter one word, or a comma separated list of words to find the most similar words to the ones you entered</span>
 <form method='get'>
     <label for='words'>List of words (comma separated):</label>
     <input type='text' id='words' name='words' 
