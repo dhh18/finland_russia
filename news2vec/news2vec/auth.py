@@ -9,13 +9,9 @@ def check_auth(username, password):
     secrets_file = 'secrets'
     with open(secrets_file, 'r') as f:
         content = f.readline().rstrip()
-        type(content)
-        print(content)
 
     valid_user, valid_password = tuple(content.split(':'))
-    print(valid_user)
-    print(valid_password)
-    print(valid_password)
+
     return username == valid_user and password == valid_password
 
 
