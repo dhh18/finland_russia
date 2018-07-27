@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Compare{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<span class='help'>Enter two words to see how close or far they are. The closer the distance is to 1, the closer the words are in the corpus.</span>
+<form method='get'>
+    <label for='word1'>First word:</label>
+    <input type='text' id='word1' name='word1' 
+           value='{% if args %}{{ args.get("word1") }}{% endif %}'/>
+    <label for='word2'>Second word:</label>
+    <input type='text' id='word2' name='word2' 
+           value='{% if args %}{{ args.get("word2") }}{% endif %}'/>
+    {% for corpus in models.keys() %}
+        <div class='row'>
+          <label for='{{ corpus }}'>{{ corpus }}</label>
+          <input type='checkbox' id='{{ corpus }}' name="corpora" value='{{ corpus }}' 
+          {% if  not args or not args.getlist('corpora') or corpus in args.getlist('corpora') %}
+              checked
+          {% endif %}
+          />
+        </div>
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
+
+{% if results %}
+    <div class='results_container'>
+    <h2>Results</h2>
+    <div>Distance between <em class='positive'>{{ args.get('word1') }}</em> and 
+    <em class='positive'>{{ args.get('word2') }}</em>  </div>
+    {% for corpus in results.keys() %}
+        <div class='corpus_result'>
+        <h3>Corpus: {{ corpus }}</h3>
+          <table>
+            <thead>
+                <td>Period</td>
+                <td>Distance</td>
+            </thead>
+        {% for period in results[corpus]|sort(reverse=true) %}
+            <tr>
+                <td>{{ period }}</td>
+                <td>{{ results[corpus][period] }}</td>
+            </tr>
+        {% endfor %}
+           </table>
+        </div>
+    {% endfor %}
+    </div>
+{% endif %}
+
+{% endblock %}

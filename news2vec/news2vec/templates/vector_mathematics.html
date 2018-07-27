@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Vector Mathematics{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<span class='help'>Ask questions of the type "What is A to B, but not to C". </span>
+<form method='get'>
+    <label for='positive_words'>List of positive words:</label>
+    <input type='text' id='positive_words' name='positive_words' 
+           value='{{ args.get('positive_words') }}'/>
+    <label for='negative_words'>List of negative words:</label>
+    <input type='text' id='negative_words' name='negative_words' 
+           value='{{ args.get('negative_words') }}'/>
+    <label for='n'>Number of results:</label>
+    <select id='n' name='n'>
+      <option value="1"{% if args.get('n') == '1' %} selected="selected"{% endif %}>1</option>
+      <option value="2"{% if args.get('n') == '2' %} selected="selected"{% endif %}>2</option>
+      <option value="3"{% if args.get('n') == '3' %} selected="selected"{% endif %}>3</option>
+      <option value="4"{% if args.get('n') == '4' %} selected="selected"{% endif %}>4</option>
+      <option value="5"{% if args.get('n') == '5' or not args.get('n') %} selected="selected"{% endif %}>5</option>
+      <option value="10"{% if args.get('n') == '10' %} selected="selected"{% endif %}>10</option>
+      <option value="50"{% if args.get('n') == '50' %} selected="selected"{% endif %}>50</option>
+      <option value="100"{% if args.get('n') == '100' %} selected="selected"{% endif %}>100</option>
+    </select>
+    {% for corpus in models.keys() %}
+        <div class='row'>
+          <label for='{{ corpus }}'>{{ corpus }}</label>
+          <input type='checkbox' id='{{ corpus }}' name="corpora" value='{{ corpus }}' 
+          {% if corpus in args.getlist('corpora') or not args.getlist('corpora')%}
+              checked
+          {% endif %}
+          />
+        </div>
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
+
+{% if results %}
+    <div class='results_container'>
+    <h2>Results</h2>
+    <div>Positive words: <em class='positive'>{{ args.get('positive_words') }}</em><br />
+      Negative words: <em class='negative'>{{ args.get('negative_words') }}</em></div>
+    {% for corpus in results.keys() %}
+        <div class='corpus_result'>
+        <h3>Corpus: {{ corpus }}</h3>
+        {% for period in results[corpus]|sort(reverse=true) %}
+            <h4>Period: {{ period }}</h4>
+            <table>
+                <thead>
+                    <td>Word</td>
+                    <td>Closeness</td>
+                </thead>
+            {% for row in results[corpus][period] %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
+{% endif %}
+
+{% endblock %}

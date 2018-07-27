@@ -5,3 +5,13 @@ __pycache__/
 *russia*.json
 .ipynb_checkpoints
 .httr-oauth
+.DS_Store
+.idea/
+backup/
+generated_images/
+images.tar.gz
+models
+*sublime*
+pickles/
+secrets
+
