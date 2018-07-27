@@ -5,6 +5,7 @@ import json
 from werkzeug.exceptions import abort
 from flask import current_app as app
 from werkzeug.datastructures import MultiDict
+from . import auth
 
 bp = Blueprint('view', __name__)
 
@@ -20,11 +21,13 @@ def validate_input(param):
 
 
 @bp.route('/')
+@auth.requires_auth
 def index():
     return render_template('index.html')
 
 
 @bp.route('/most_similar', methods=['GET'])
+@auth.requires_auth
 def most_similar():
     results = None
     download_paths = {}
@@ -56,6 +59,7 @@ def most_similar():
 
 
 @bp.route('/compare')
+@auth.requires_auth
 def compare():
     results = None
     word1 = request.args.get('word1')
@@ -76,6 +80,7 @@ def compare():
 
 
 @bp.route('/vector_mathematics')
+@auth.requires_auth
 def vector_mathematics():
     results = None
     positive_words = request.args.get('positive_words')
