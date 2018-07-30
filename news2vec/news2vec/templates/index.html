@@ -11,11 +11,11 @@
     <span>Enter one word, or a comma separated list of words to find the most similar words to the ones you entered</span>
   </div>
   <div class='feature'>
-    <a class='teaserlink' href='most_similar'>Compare word distances</a>
+    <a class='teaserlink' href='compare'>Compare word distances</a>
     <span>Enter two words to see how close or far they are. The closer the distance is to 1, the closer the words are in the corpus.</span>
   </div>
   <div class='feature'>
-    <a class='teaserlink' href='most_similar'>Perform word vector arithmetics</a>
+    <a class='teaserlink' href='vector_mathematics'>Perform word vector arithmetics</a>
     <span>Ask questions of the type "What is A to B, but not to C". <a href='https://blog.acolyer.org/2016/04/21/the-amazing-power-of-word-vectors/'>This article</a> gives an  intuition on how word vectors work.</span>
   </div>
 </div>
@@ -62,7 +62,7 @@
     <p>For each corpus, the following models have been trained:
     <ul>
       <li><b>All years</b> - All articles from the entire available time span were used to train this model. Only individual words were used to train (no common phrase detection).</li>
-      <li><b>All years / phrases</b> - All articles from the entire available time span were used to train this model, in addition, the model tried to detect common phrases and learn those as well.</li> 
+      <li><b>All years / phrases</b> - All articles from the entire available time span were used to train this model, in addition, the model tried to detect pairs of lemmatized words that occur often together (common bigrams) and learn those as well in addition to standalone words.</li> 
       <li><b>5 year batches</b> - In addition to training on the entire corpus, 5-year batches were used to train the models for 1993-1997, 1994-1999, 1994-1999, etc</li>   
     </ul>
     </p>
